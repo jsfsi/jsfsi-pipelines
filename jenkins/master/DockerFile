@@ -1,4 +1,5 @@
-FROM jenkins/jenkins:2.203
+ARG VERSION
+FROM jenkins/jenkins:$VERSION
 
 USER jenkins
 
