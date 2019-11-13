@@ -11,6 +11,7 @@ latest_version=$(curl -s http://mirrors.jenkins.io/war/ | grep latest -B 1 | hea
 ## Build
 
 ```sh
+container_registry="gcr.io/${project_id}"
 pipelines/scripts/docker/01-build.sh jenkins_master ${latest_version} ${container_registry} $(pwd)/jenkins/master/DockerFile $(pwd)/jenkins/master
 ```
 
@@ -18,7 +19,6 @@ pipelines/scripts/docker/01-build.sh jenkins_master ${latest_version} ${containe
 
 ```sh
 gcloud auth login
-container_registry="gcr.io/${project_id}"
 pipelines/scripts/gcloud/docker/01-publish.sh jenkins_master ${latest_version} ${container_registry}
 ```
 
