@@ -10,7 +10,7 @@ Let’s Encrypt is a free, automated, and open Certificate Authority. <https://l
 
 ```sh
 gcloud auth activate-service-account --key-file="$key_file"
-gcloud container clusters get-credentials --project="${project_id}" --zone="${cluster_zone}" "${cluster_name}"
+gcloud container clusters get-credentials --project="${project_id}" --zone="${cluster_zone:-europe-west1-b}" "${cluster_name}
 ```
 
 ### Install lets encrypt in any Kubernetes cluster

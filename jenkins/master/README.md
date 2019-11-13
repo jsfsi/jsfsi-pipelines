@@ -5,7 +5,7 @@ Jenkins provides hundreds of plugins to support building, deploying and automati
 ## Latest version
 
 ```sh
-latest_version=$(curl -s http://mirrors.jenkins.io/war/ | grep latest -B 1 | head -n 1 | grep -oh -e "\d*\d\.\d\d*" | head -n 1)
+latest_version=$(curl -s http://mirrors.jenkins.io/war/ | grep latest -B 1 | head -n 1 | grep -oh -e "[0-9]*\.[0-9]*" | tail -n 1)
 ```
 
 ## Build
