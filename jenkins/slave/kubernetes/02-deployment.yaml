@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: "Deployment"
+metadata:
+  name: "${APP_NAME}-slave-${SLAVE_ID}"
+  namespace: ${NAMESPACE}
+  labels:
+    app: "${APP_NAME}-slave"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: ${APP_NAME}-slave
+    spec:
+      containers:
+        - name: "${APP_NAME}-slave"
+          imagePullPolicy: Always
+          image: ${IMAGE}
+          env:
+            - name: JENKINS_TUNNEL
+              value: ${APP_NAME}-discovery:50000
+            - name: JENKINS_NAME
+              value: ${APP_NAME}-slave-${SLAVE_ID}
+            - name: JENKINS_URL
+              value: ${JENKINS_URL}
+            - name: HOME
+              value: /home/jenkins
+            - name: JENKINS_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jenkins-slave-secret
+                  key: secret
+          volumeMounts: 
+            - mountPath: /var/run/docker.sock
+              name: docker-socket
+            - mountPath: /etc/default/docker
+              name: docker-config
+      volumes: 
+        - name: docker-socket
+          hostPath: 
+            path: /var/run/docker.sock
+        - name: docker-config
+          hostPath:
+            path: /etc/default/docker
