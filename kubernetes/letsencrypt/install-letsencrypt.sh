@@ -30,6 +30,8 @@ helm install \
   --version v0.11.0 \
   jetstack/cert-manager
 
+sleep 1m
+
 echo "Setup Cluster Issuer"
 envsubst < cluster_issuer.yaml > cluster_issuer.tmp.yaml
 kubectl apply -f cluster_issuer.tmp.yaml
