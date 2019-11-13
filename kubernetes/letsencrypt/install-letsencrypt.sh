@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 set -eo pipefail
 
@@ -22,8 +22,6 @@ kubectl apply -f 00-crds.yaml --validate=false
 helm repo add jetstack https://charts.jetstack.io
 
 helm repo update
-
-helm del --purge cert-manager
 
 echo "Install Cert Manager"
 helm install \
