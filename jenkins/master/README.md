@@ -27,5 +27,5 @@ pipelines/scripts/gcloud/docker/01-publish.sh jenkins_master ${latest_version} $
 ```sh
 gcloud auth login
 gcloud container clusters get-credentials --project="${project_id}" --zone="${cluster_zone}" "${cluster_name}"
-GOOGLE_APP_SECRET="" pipelines/scripts/kubernetes/01-deploy.sh ${application_environment_variables_file_path} ${deployment_environment_variables_file_path)
+GOOGLE_APP_SECRET="" VERSION=${latest_version} pipelines/scripts/kubernetes/01-deploy.sh ${application_environment_variables_file_path} ${deployment_environment_variables_file_path)
 ```
