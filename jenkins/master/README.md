@@ -19,7 +19,7 @@ pipelines/scripts/docker/01-build.sh jenkins_master ${latest_version} ${containe
 
 ```sh
 gcloud auth login
-pipelines/scripts/gcloud/docker/01-publish.sh jenkins_master ${latest_version} ${container_registry}
+pipelines/scripts/gcloud/docker/01-publish.sh jenkins_master ${latest_version} ${project_id}
 ```
 
 ### Deploy to kubernetes
