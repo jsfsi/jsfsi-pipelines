@@ -11,8 +11,9 @@ script_dir=$(dirname "$(pwd)/$0")
 # shellcheck disable=SC2164
 pushd "$script_dir" > /dev/null
 
-gcloud docker -- push "${container_registry}/${app_name}:$version"
-gcloud docker -- push "${container_registry}/${app_name}:latest"
+gcloud auth configure-docker --quiet
+docker push "${container_registry}/${app_name}:$version"
+docker push "${container_registry}/${app_name}:latest"
 
 # shellcheck disable=SC2164
 popd > /dev/null
