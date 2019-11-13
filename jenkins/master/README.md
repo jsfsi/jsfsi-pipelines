@@ -2,10 +2,15 @@
 
 Jenkins provides hundreds of plugins to support building, deploying and automating any project. <https://jenkins.io/>
 
-## Build
+## Latest version
 
 ```sh
 latest_version=$(curl -s http://mirrors.jenkins.io/war/ | grep latest -B 1 | head -n 1 | grep -oh -e "\d*\d\.\d\d*" | head -n 1)
+```
+
+## Build
+
+```sh
 pipelines/scripts/docker/01-build.sh jenkins_master ${latest_version} ${container_registry} $(pwd)/jenkins/master/DockerFile $(pwd)/jenkins/master
 ```
 
@@ -13,6 +18,7 @@ pipelines/scripts/docker/01-build.sh jenkins_master ${latest_version} ${containe
 
 ```sh
 gcloud auth login
+container_registry="gcr.io/${project_id}"
 pipelines/scripts/gcloud/docker/01-publish.sh jenkins_master ${latest_version} ${container_registry}
 ```
 

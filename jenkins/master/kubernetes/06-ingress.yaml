@@ -1,3 +1,4 @@
+# https://docs.cert-manager.io/en/latest/tasks/issuing-certificates/ingress-shim.html
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -5,6 +6,8 @@ metadata:
   namespace: ${NAMESPACE}
   annotations:
     kubernetes.io/ingress.global-static-ip-name: ${STATIC_IP}
+    cert-manager.io/cluster-issuer: ${CERTIFICATE_ISSUER}
+    acme.cert-manager.io/http01-edit-in-place: "true"
   labels:
     app: ${APP_NAME}
 spec:
@@ -19,5 +22,5 @@ spec:
       paths:
       - path: /*
         backend:
-          serviceName: ${APP_NAME}-ui
-          servicePort: ${SERVER_PORT}
+          serviceName: ${APP_NAME}
+          servicePort: ${NGINX_SERVER_PORT}
