@@ -25,7 +25,8 @@ fi
 
 temp_folder="./kubernetes-temp"
 mkdir -p "${temp_folder}/deploy"
-cp "${K8S_TEMPLATES_FOLDER}/*.yaml" "${temp_folder}"
+# shellcheck disable=SC2086
+cp ${K8S_TEMPLATES_FOLDER}/*.yaml "${temp_folder}"
 
 check_deployment=0
 check_daemonset=0
