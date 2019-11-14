@@ -44,7 +44,15 @@ spec:
           memory: 1500Mi
         requests:
           cpu: 1000m
-          memory: 1500Mi    
+          memory: 1500Mi
+      readinessProbe:
+        httpGet:
+          path: /login
+          port: ${SERVER_PORT}
+        periodSeconds: 60
+        timeoutSeconds: 30
+        successThreshold: 2
+        failureThreshold: 5
     volumes:
     - name: ${APP_NAME}-home
       persistentVolumeClaim:
