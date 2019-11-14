@@ -23,4 +23,4 @@ spec:
       - path: /*
         backend:
           serviceName: ${APP_NAME}-ui
-          servicePort: ${NGINX_SERVER_PORT}
+          servicePort: ${SERVER_PORT}
