@@ -1,0 +1,52 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+ name: ${APP_NAME}
+ namespace: ${NAMESPACE}
+spec:
+ replicas: 1
+ template:
+  metadata:
+    labels:
+      app: ${APP_NAME}
+  spec:
+    containers:
+    - name: ${APP_NAME}
+      imagePullPolicy: Always
+      image: ${IMAGE}
+      ports:
+      - containerPort: ${SERVER_PORT}
+      - containerPort: 50000
+      env:
+      - name: JAVA_OPTS
+        value: '-Xmx1400m -Djenkins.install.runSetupWizard=false'
+      - name: EXTERNAL_URL
+        value: https://${DOMAIN}/
+      - name: BUILD_URL
+        value: https://${DOMAIN}/
+      - name: GOOGLE_APP_CLIENT_ID
+        value: ${GOOGLE_APP_CLIENT_ID}
+      - name: GOOGLE_ACCOUNT_DOMAIN
+        value: ${GOOGLE_ACCOUNT_DOMAIN}
+      - name: GOOGLE_APP_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: google-app-secret
+            key: secret
+      securityContext: 
+        runAsUser: 0 
+      volumeMounts:
+      - name: ${APP_NAME}-home
+        mountPath: /var/jenkins_home        
+      resources:
+        limits:
+          cpu: 1000m
+          memory: 1500Mi
+        requests:
+          cpu: 1000m
+          memory: 1500Mi    
+    volumes:
+    - name: ${APP_NAME}-home
+      persistentVolumeClaim:
+        claimName: ${APP_NAME}-disk
+     
