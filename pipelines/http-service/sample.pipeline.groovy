@@ -32,11 +32,7 @@ pipeline {
         }
         stage('Publish artifacts') {
             steps {
-                withCredentials([
-                    file(credentialsId: 'uefa-service-account-key', variable: 'FILE')
-                ]) {
-                    sh script: "${SCRIPTS_FOLDER}/gcloud/docker/01-publish.sh ${APP_NAME} ${VERSION} ${CONTAINER_REGISTRY} ${PROJECT_ID}", label: "Publish ${APP_NAME}"
-                }
+                sh script: "${SCRIPTS_FOLDER}/gcloud/docker/01-publish.sh ${APP_NAME} ${VERSION} ${CONTAINER_REGISTRY} ${PROJECT_ID}", label: "Publish ${APP_NAME}"
             }
         }
         stage('Deploy QA') {

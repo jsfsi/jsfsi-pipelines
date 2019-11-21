@@ -37,7 +37,7 @@ for filename in "${temp_folder}"/*.yaml; do
     if [[ "${base_filename}" == *"configmap.yaml" ]]; then
         # shellcheck disable=SC2086
         # shellcheck disable=SC2016
-        envsubst '$NAMESPACE $SERVER_PORT $DOMAIN' < "$filename" > "${temp_folder}/deploy/${base_filename}"
+        envsubst '$NAMESPACE $SERVER_PORT $NGINX_SERVER_PORT $DOMAIN' < "$filename" > "${temp_folder}/deploy/${base_filename}"
     else
         # shellcheck disable=SC2086
         envsubst < "$filename" > "${temp_folder}/deploy/${base_filename}"
