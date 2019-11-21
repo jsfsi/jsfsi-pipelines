@@ -13,7 +13,7 @@ script_dir=$(dirname "$(pwd)/$0")
 # shellcheck disable=SC2164
 pushd "$script_dir" > /dev/null
 
-curl -v "${jenkins_url}/credentials/store/system/createDomain" \
+curl "${jenkins_url}/credentials/store/system/createDomain" \
 --user "${username}":"${token}" \
 --data-urlencode "json={  
   \"name\": \"${domain_name}\",
