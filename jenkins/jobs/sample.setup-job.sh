@@ -20,7 +20,7 @@ pipeline/scripts/credentials/add-privatekey.sh "${jenkins_url}" "${username}" "$
 
 pipeline/scripts/credentials/add-secret-file.sh "${jenkins_url}" "${username}" "${token}" "${domain_name}" "/tmp/example.service-account.key" "example-service-account-key" "JSON Key to access some service"
 
-pipeline/scripts/credentials/add-username-password.sh "${jenkins_url}" "${username}" "${token}" "${domain_name}" "${secret_username}" "${secret_password}" "example-credentials-qa" "Example database qa Username and Password"
+pipeline/scripts/credentials/add-username-password.sh "${jenkins_url}" "${username}" "${token}" "${domain_name}" $(echo -n "${secret_username}" | base64) $(echo -n "${secret_password}" | base64) "example-credentials-qa" "Example database qa Username and Password"
 
 pipeline/scripts/jobs/create-job.sh "${jenkins_url}" "${username}" "${token}" "./sample.job.env"
 
