@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+ name: ${APP_NAME}
+ namespace: ${NAMESPACE}
+spec:
+ replicas: 1
+ template:
+  metadata:
+    labels:
+      app: ${APP_NAME}
+  spec:
+    containers:
+    - name: ${APP_NAME}
+      imagePullPolicy: Always
+      image: ${IMAGE}
+      env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: MSSQL_PID
+          value: "${MSSQL_PID}"
+        - name: SA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sa-password-secret
+              key: secret
+      resources:
+        limits:
+          memory: ${REQUIRED_MEMORY}
+          cpu: ${REQUIRED_CPU}
+        requests:
+          memory: ${REQUIRED_MEMORY}
+          cpu: ${REQUIRED_CPU}
+      ports:
+      - containerPort: ${SERVER_PORT}
+      volumeMounts:
+      - name: ${APP_NAME}
+        mountPath: /var/opt/mssql
+    volumes:
+    - name: ${APP_NAME}
+      persistentVolumeClaim:
+       claimName: ${APP_NAME}
