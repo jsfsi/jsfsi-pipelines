@@ -13,7 +13,7 @@ script_dir=$(dirname "$(pwd)/$0")
 # shellcheck disable=SC2164
 pushd "$script_dir" > /dev/null
 
-docker build "${context_path}" -f "${dockerfile_path}" -t "${container_registry}/${app_name}:$version" --build-arg VERSION="${version}"
+docker build "${context_path}" -f "${dockerfile_path}" -t "${container_registry}/${app_name}:$version" --build-arg VERSION="${version}" --build-arg APP_NAME="${app_name}"
 docker tag "${container_registry}/${app_name}:$version" "${container_registry}/${app_name}:latest"
 
 # shellcheck disable=SC2164
