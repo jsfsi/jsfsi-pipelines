@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-conf
+  namespace: ${NAMESPACE}
+data:
+  redis.conf: |-
+    bind 0.0.0.0
+    port ${SERVER_PORT}
+    pidfile /var/run/redis_${SERVER_PORT}.pid
+    loglevel ${LOG_LEVEL}
+    databases 16

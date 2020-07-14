@@ -1,0 +1,51 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ${APP_NAME}
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ${APP_NAME}
+    spec:
+      containers:
+        - name: ${APP_NAME}
+          imagePullPolicy: Always
+          image: redis:6.0.5-alpine3.12
+          command: ["redis-server"]
+          args:
+            [
+              "/usr/local/etc/redis/redis.conf",
+              "--requirepass $(REDIS_PASSWORD)",
+            ]
+          env:
+            - name: VERSION
+              value: "${VERSION}"
+            - name: SERVER_PORT
+              value: "${SERVER_PORT}"
+            - name: LOG_LEVEL
+              value: "${LOG_LEVEL}"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-password-secret
+                  key: secret
+          resources:
+            limits:
+              memory: 64Mi
+              cpu: 62m
+            requests:
+              memory: 64Mi
+              cpu: 62m
+          ports:
+            - containerPort: ${SERVER_PORT}
+          volumeMounts:
+            - name: redis-config
+              mountPath: /usr/local/etc/redis/redis.conf
+              subPath: redis.conf
+      volumes:
+        - name: redis-config
+          configMap:
+            name: redis-conf
