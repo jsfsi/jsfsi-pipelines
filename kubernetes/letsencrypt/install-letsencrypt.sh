@@ -27,7 +27,7 @@ echo "Install Cert Manager"
 helm install \
   --name cert-manager \
   --namespace kube-system \
-  --version v0.11.0 \
+  --version v0.16.1 \
   jetstack/cert-manager
 
 sleep 1m
