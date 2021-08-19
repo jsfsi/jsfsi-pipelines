@@ -20,6 +20,8 @@ spec:
           imagePullPolicy: Always
           image: ${IMAGE}
           env:
+            - name: CLOUDSDK_PYTHON
+              value: /usr/bin/python
             - name: JENKINS_TUNNEL
               value: ${APP_NAME}-discovery:50000
             - name: JENKINS_NAME
