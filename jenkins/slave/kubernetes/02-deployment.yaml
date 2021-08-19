@@ -9,7 +9,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ${APP_NAME}-slave
+      name: ${APP_NAME}-slave
   template:
     metadata:
       labels:

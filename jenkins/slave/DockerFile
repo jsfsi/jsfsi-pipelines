@@ -53,10 +53,10 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-c
 RUN chmod +x /usr/local/bin/docker-compose
 
 # Install node
-RUN curl -sL https://deb.nodesource.com/setup_11.x -o nodesource_setup.sh; \
+RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh; \
     bash nodesource_setup.sh; \
     apt-get install -y nodejs; \
-    npm install -g npm@6.9.0
+    npm install -g npm@7.20.3
 
 RUN npm install -g yarn
 
